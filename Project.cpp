@@ -1,4 +1,4 @@
-/*
+cd/*
  * CSc103 Project 3: Game of Life
  * See readme.html for details.
  * Please list all references you made use of in order to complete the
@@ -81,4 +81,9 @@ int main(int argc, char *argv[]) {
 
 void mainLoop() {
 	/* update, write, sleep */
+	int n;
+	while(cin>>n){
+		n=n+2;
+	}
+	cout<< n;
 }

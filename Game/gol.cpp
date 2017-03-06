@@ -81,4 +81,5 @@ int main(int argc, char *argv[]) {
 
 void mainLoop() {
 	/* update, write, sleep */
+
 }
