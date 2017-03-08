@@ -81,23 +81,20 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 
-void mainLoop() {
+void mainLoop()
 	/* update, write, sleep */
 
-FILE* f = fopen
-("/home/csc103/project-game/Game/res/glider-40x20","rb");
-if(!f) {
-	cout<< "Error"<<"\n";
-	exit(1);
-}
+size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >& g){
+  for(int i=0; i< ROWS; i++){
+  for( int=j; j<COLS; j++){
+    if g[i][j-1] is alive: cout++ //checks left
+    if g[i][j+1] is alive: cout++ //checks right
+    if g[i-1][j] is alive: cout++ //checks up
+    if g[i+1][j+1] is alive:cout++//checks down
+    if g[i-1][j-1] is alive: cout++//checks top left
+    if g[i-1][j+1] is alive: cout++ //checks top right
+    if g[i+1][j-1] is alive: cout++ //checks bottom left
+    if g[i+1][j+1] is alive: cout++ //checks top right
+      return cout;
 
-char c;
-fread(&c,1,1,f);
-fclose(f);
-}
-while(fread(&c,sizeof(char),1,f)
-{column.push_back(c);
-	if c(=='\n')
-	{rows++;
-	}
-	out_file<<< c
+
