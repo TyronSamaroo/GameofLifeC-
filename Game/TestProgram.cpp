@@ -12,7 +12,8 @@
  * Finally, please indicate approximately how many hours you spent on this:
  * #hours:
  */
-#include <fstream>
+
+#include<fstream>
 #include<iostream>
 #include <cstdio>
 #include <stdlib.h> // for exit();
@@ -21,9 +22,7 @@
 #include <vector>
 using std::vector;
 #include <string>
-using std::string;
-using std::cout;
-using std::cin;
+using namespace std;
 
 static const char* usage =
 "Usage: %s [OPTIONS]...\n"
@@ -38,7 +37,7 @@ string wfilename =  "/tmp/gol-world-current"; /* write state here */
 FILE* fworld = 0; /* handle to file wfilename. */
 string initfilename = "/tmp/gol-world-current"; /* read initial state from here. */
 
-size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >& g);
+size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >&g,const vector<vector<bool> >&gcopy);
 void update();
 int initFromFile(const string& fname);
 void mainLoop();
@@ -78,22 +77,72 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
+void mainLoop();
 
-	mainLoop();
+
+FILE * f=fopen("/home/csc103/project-game/Game/res/diehard-80x60","rb");
+	if(!f){
+		printf("error \n");
+	exit(1);}
+	while(fread(&c,1,1,f)> 0){
+		printf( "%c\n",c);}
+    fclose(f);
+
 	return 0;
 }
 
-void mainLoop() {
+void mainLoop(){
 	/* update, write, sleep */
+}
 
-FILE* f = fopen
+
+#if 0
+void makegrid(const vector<vector<char> >&grid)
+{
+  for(int x=0;  x< grid.size(); x++)
+  {
+    for(int y= 0; y< grid[x].size(); y++)
+    {
+      cout <<g[x][y];}
+      cout<<endl;
+    }
+    }
+    //global values//
+  char A='O';
+  char D='.';
+void check(const vector<vector<char> >g, int nArray[40][20]){
+  int count=0;
+
+  for(int i=0; i< g.size(); i++){
+  for( int j=0; j<g[i].size(); j++){
+
+    if (g[i][j-1]==A)  {count++;}
+    if (g[i][j+1]==A)  {count++;}
+    if (g[i-1][j]==A)  {count++;}
+    if (g[i+1][j+1]==A){count++;}
+    if (g[i-1][j-1]==A){count++;}
+    if (g[i-1][j+1]==A){count++;}
+    if (g[i+1][j-1]==A){count++;}
+    if (g[i+1][j+1]==A){count++;}
+  } }
+}
+void rules(const vector<vector<char> >g){
+
+if(g[i][j]==A)&&(count==0 || count==1)
+{g[i][j]=D;}
+else if(g[i][j]==A)&&(count==2 || count==3)
+{g[i][j]=A;}
+else if(g[i][j]==A)&&(count>3)
+{g[i][j]=D;}
+else if(g[i][j]==A)&&(count==3)
+{g[i][j]=A;}
+}
+
+FILE* f;
+f=fopen
 ("/home/csc103/project-game/Game/res/glider-40x20","rb");
-if(!f) {
-	cout<< "Error"<<"\n";
-	exit(1);
-}
-
-char c;
-fread(&c,1,1,f);
-fclose(f);
-}
+if(f) {
+	while((c=getc(f)) !=EOF)
+    putchar(c);
+    fclose(f);
+#endif
