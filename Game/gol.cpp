@@ -12,7 +12,7 @@
  * Finally, please indicate approximately how many hours you spent on this:
  * #hours:
  */
-
+#include <iostream>
 #include <cstdio>
 #include <stdlib.h> // for exit();
 #include <getopt.h> // to parse long arguments.
@@ -21,7 +21,7 @@
 using std::vector;
 #include <string>
 using std::string;
-
+using std::cout;
 static const char* usage =
 "Usage: %s [OPTIONS]...\n"
 "Text-based version of Conway's game of life.\n\n"
@@ -80,6 +80,14 @@ int main(int argc, char *argv[]) {
 }
 
 void mainLoop() {
+	FILE* f = fopen("/home/csc103/project-game/Game/res/glider-40x20","rb");
+if(!f){
+	cout << "error \n";
+	exit(1);}
+char c = '.';
+fwrite(&c,1,1,f);
+fclose(f);
 	/* update, write, sleep */
 
 }
+
