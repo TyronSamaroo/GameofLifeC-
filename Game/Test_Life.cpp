@@ -119,7 +119,7 @@ void print(int array[52][102])
 		for (int i = 1; i < 101; i++)
 		{
 			if (array[j][i] == 1)
-				cout << '0';
+				cout << 'O';
 			else
 				cout << '.';
 		}
