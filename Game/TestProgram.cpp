@@ -37,11 +37,12 @@ string wfilename =  "/tmp/gol-world-current"; /* write state here */
 FILE* fworld = 0; /* handle to file wfilename. */
 string initfilename = "/tmp/gol-world-current"; /* read initial state from here. */
 
-size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >&g,const vector<vector<bool> >&gcopy);
+size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >&g);
 void update();
 int initFromFile(const string& fname);
 void mainLoop();
 void dumpState(FILE* f);
+void vectorofvector(const vector<vector<char> >&v);
 
 char text[3] = ".O";
 
@@ -56,6 +57,7 @@ int main(int argc, char *argv[]) {
 	};
 	// process options:
 	char c;
+
 	int opt_index = 0;
 	while ((c = getopt_long(argc, argv, "hs:w:f:", long_opts, &opt_index)) != -1) {
 		switch (c) {
@@ -77,67 +79,77 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-void mainLoop();
 
-
-FILE * f=fopen("/home/csc103/project-game/Game/res/diehard-80x60","rb");
-	if(!f){
-		printf("error \n");
-	exit(1);}
-	while(fread(&c,1,1,f)> 0){
-		printf( "%c\n",c);}
-    fclose(f);
-
+mainLoop();
 	return 0;
 }
 
 void mainLoop(){
 	/* update, write, sleep */
 }
+#if 1
 
-
+void dumpState(FILE* f){
+	char c;
+FILE * f=fopen("/home/csc103/project-game/Game/res/glider-40x20","rb");
+	if(!f){
+		printf("error \n");
+	exit(1);}
+	while(fread(&c,1,1,f)> 0){
+		printf( "%c\n",c);}
+    fclose(f);
+return;
+	}
+#endif
 #if 0
-void makegrid(const vector<vector<char> >&grid)
+void vectorofvector(const vector<vector<char> >&v,){
+
+dumpState(FILE* f);
+	while(char){
+		v.push_back(c);
+	}
+}
+
+#endif
+#if 1
+}
+
+size_t check(size_t i; size_t j; vector<vector<bool> >& g){
+  size_t count=0;
+	if (g[i][j-1])  {count++;}
+	if (g[i][j+1])  {count++;}
+	if (g[i-1][j])  {count++;}
+	if (g[i+1][j+1]){count++;}
+	if (g[i-1][j-1]){count++;}
+	if (g[i-1][j+1]){count++;}
+	if (g[i+1][j-1]){count++;}
+	if (g[i+1][j+1]){count++;}
+	return count;
+}
+
+void makegrid(const vector<vector<bool> >&grid)
 {
   for(int x=0;  x< grid.size(); x++)
   {
     for(int y= 0; y< grid[x].size(); y++)
     {
-      cout <<g[x][y];}
-      cout<<endl;
+      cout <<g[x][y];
     }
-    }
-    //global values//
-  char A='O';
-  char D='.';
-void check(const vector<vector<char> >g, int nArray[40][20]){
-  int count=0;
+		cout<<endl;
+	}
+}//global values//
 
-  for(int i=0; i< g.size(); i++){
-  for( int j=0; j<g[i].size(); j++){
 
-    if (g[i][j-1]==A)  {count++;}
-    if (g[i][j+1]==A)  {count++;}
-    if (g[i-1][j]==A)  {count++;}
-    if (g[i+1][j+1]==A){count++;}
-    if (g[i-1][j-1]==A){count++;}
-    if (g[i-1][j+1]==A){count++;}
-    if (g[i+1][j-1]==A){count++;}
-    if (g[i+1][j+1]==A){count++;}
-  } }
+
+bool rules(int count){
+	if(count < 2){
+		return false;
+	}else if(count == 3){
+		return true;
+	}else if (count > 3){
+		return false;
+	}
 }
-void rules(const vector<vector<char> >g){
-
-if(g[i][j]==A)&&(count==0 || count==1)
-{g[i][j]=D;}
-else if(g[i][j]==A)&&(count==2 || count==3)
-{g[i][j]=A;}
-else if(g[i][j]==A)&&(count>3)
-{g[i][j]=D;}
-else if(g[i][j]==A)&&(count==3)
-{g[i][j]=A;}
-}
-
 FILE* f;
 f=fopen
 ("/home/csc103/project-game/Game/res/glider-40x20","rb");

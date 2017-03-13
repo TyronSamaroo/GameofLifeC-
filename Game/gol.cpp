@@ -12,12 +12,12 @@
  * Finally, please indicate approximately how many hours you spent on this:
  * #hours:
  */
-<<<<<<< HEAD
+
 #include <iostream>
-=======
+
 #include <fstream>
 #include<iostream>
->>>>>>> 51433820a32b6743e6f119d4a815f05028a8aab8
+
 #include <cstdio>
 #include <stdlib.h> // for exit();
 #include <getopt.h> // to parse long arguments.
@@ -27,11 +27,10 @@ using std::vector;
 #include <string>
 using std::string;
 using std::cout;
-<<<<<<< HEAD
-=======
+
 using std::cin;
 
->>>>>>> 51433820a32b6743e6f119d4a815f05028a8aab8
+
 static const char* usage =
 "Usage: %s [OPTIONS]...\n"
 "Text-based version of Conway's game of life.\n\n"
@@ -95,7 +94,7 @@ void mainLoop() {
 if(!f){
 	cout << "error \n";
 	exit(1);}
-char c = '.';
+
 fwrite(&c,1,1,f);
 fclose(f);
 	/* update, write, sleep */
