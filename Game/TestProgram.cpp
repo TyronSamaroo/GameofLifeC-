@@ -114,16 +114,27 @@ dumpState(FILE* f);
 #if 1
 }
 
-size_t check(size_t i; size_t j; vector<vector<bool> >& g){
+int check(int i; int j; vector<vector<bool> >& g){
   size_t count=0;
-	if (g[i][j-1])  {count++;}
-	if (g[i][j+1])  {count++;}
-	if (g[i-1][j])  {count++;}
-	if (g[i+1][j+1]){count++;}
-	if (g[i-1][j-1]){count++;}
-	if (g[i-1][j+1]){count++;}
-	if (g[i+1][j-1]){count++;}
-	if (g[i+1][j+1]){count++;}
+	for(i = 0; i < g.size(); i++){
+		for(j = 0; j < g[0].size(); j++){
+
+	if (g[i][(j-1+g[0].size())%g[0].size()])  {count++;}
+
+	if (g[i][(j+1+g[0].size())%g[0].size()])  {count++;}
+
+	if (g[(i-1+g.size())%g.size()][j])  {count++;}
+
+	if (g[(i+1+g.size())%g.size()][(j+1+g[0].size())%g[0].size())]){count++;}
+
+	if (g[(i-1+g.size()%g.size())][(j-1+g[0].size())%g[0].size()])   {count++;}
+
+	if (g[(i-1+g.size())%g.size())][(j+1+g[0].size())%g[0].size()])  {count++;}
+
+	if (g[(i+1+g.size())%g.size()][(j-1+g[0].size())%g[0].size()])   {count++;}
+
+	if (g[(i+1+g.size())%g.size()][(j+1+g[0].size())%g[0].size())    {count++;}
+}}
 	return count;
 }
 
