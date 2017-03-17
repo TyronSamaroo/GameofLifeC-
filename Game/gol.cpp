@@ -23,13 +23,8 @@
 #include <getopt.h> // to parse long arguments.
 #include <unistd.h> // sleep
 #include <vector>
-using std::vector;
 #include <string>
-using std::string;
-using std::cout;
-
-using std::cin;
-
+using namespace std;
 
 static const char* usage =
 "Usage: %s [OPTIONS]...\n"
@@ -44,11 +39,14 @@ string wfilename =  "/tmp/gol-world-current"; /* write state here */
 FILE* fworld = 0; /* handle to file wfilename. */
 string initfilename = "/tmp/gol-world-current"; /* read initial state from here. */
 
-size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >& g);
-void update();
-int initFromFile(const string& fname);
-void mainLoop();
-void dumpState(FILE* f);
+vector<vector<bool> > old;
+
+	void printVecV(vector<vector<bool> > G);
+	int check(int i, int j, vector<vector<bool> > g);
+	void initFromFile(const string& fname);
+	void writeToFile(const string & fname);
+	void update();
+	void mainloop();
 
 char text[3] = ".O";
 
@@ -85,7 +83,7 @@ int main(int argc, char *argv[]) {
 	}
 
 
-	mainLoop();
+	mainloop();
 	return 0;
 }
 
@@ -117,9 +115,8 @@ int check(int i, int j, vector<vector<bool> > g){
 
 
 	void printVecV(vector<vector<bool> > G){
-	int count=0;
-		for (int i = 0; i < G.size() ; i++) {
-		for(int j = 0;j < G[i].size() ;j ++) {
+		for (size_t i = 0; i < G.size() ; i++) {
+		for(size_t j = 0;j < G[i].size() ;j ++) {
 			if(G[i][j]){
 			cout<<'O';
 			}else{
@@ -130,7 +127,44 @@ int check(int i, int j, vector<vector<bool> > g){
 }
 }
 
+void initFromFile(const string& fname){
 
+	string line;
+	ifstream myfile(fname);
+	if(myfile.is_open()){
+
+		while(getline (myfile,line)){
+			vector<bool> b;
+
+			for(size_t i = 0; i < line.length(); i++){
+						if(line[i] == '.') {
+							b.push_back(false);
+						}else {
+										b.push_back(true);
+						}
+					}
+					old.push_back(b);}
+				myfile.close();
+
+				}else cout << "Unable to open file" << endl;
+
+	}
+
+	void update(){
+
+		vector<vector<bool> > updated;
+		for(size_t i = 0; i < old.size(); i++){
+		vector<bool> newrow;
+			for(size_t j = 0; j < old[0].size(); j++){
+				int count = check(i,j,old);
+				if(count > 3 || count < 2) newrow.push_back(false);
+				if(count == 3) newrow.push_back(true);
+				else newrow.push_back(old[i][j]);
+			}
+			updated.push_back(newrow);
+		}
+		old = updated;
+	}
 
 	void writeToFile(const string & fname){
 		ofstream myfile(fname);
@@ -146,12 +180,6 @@ int check(int i, int j, vector<vector<bool> > g){
 			}
 			else cout << "Can't open file" << endl;
 			}
-
-
-
-
-
-
 
 
 	void mainloop(){
