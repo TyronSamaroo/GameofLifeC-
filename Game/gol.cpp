@@ -201,8 +201,9 @@ void initFromFile(const string& fname){
 
 		if(write){
 			for(size_t k = 0; k < max_gen; k++){
-			update();}
-			printVecV(old);
+			update();
+				printVecV(old);}
+
 	}
 
 	else if(max_gen == 0){
