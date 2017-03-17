@@ -89,25 +89,46 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 
-void mainLoop() {
-	FILE* f = fopen("/home/csc103/project-game/Game/res/glider-40x20","rb");
-if(!f){
-	cout << "error \n";
-	exit(1);}
 
-fwrite(&c,1,1,f);
-fclose(f);
-	/* update, write, sleep */
+int check(int i, int j, vector<vector<bool> > g){
+  int count=0;
 
-FILE* f = fopen
-("/home/csc103/project-game/Game/res/glider-40x20","rb");
-if(!f) {
-	cout<< "Error"<<"\n";
-	exit(1);
+		size_t r = g.size();
+		size_t c = g[0].size();
+
+	if (g[(i+r)%r][(j+1+c)%c])  				{count++;}		        //right
+
+	if (g[(i+r)%r][(j-1+c)%c])  				{count++;}		  	   //left
+
+	if (g[(i-1+r)%r][(j+c)%c])  				{count++;}			     //up
+
+	if (g[(i+1+r)%r][(j+c)%c])					{count++;}		  	  //down
+
+	if (g[(i-1+r)%r][(j-1+c)%c])  			{count++;}		     //up left
+
+	if (g[(i-1+r)%r][(j+1+c)%c])  			{count++;}		    //up right
+
+	if (g[(i+1+r)%r][(j-1+c)%c])   			{count++;}		   //down left
+
+	if (g[(i+1+r)%r][(j+1+c)%c])    		{count++;}	    //down right
+
+	return count;
 }
 
-char c;
-fread(&c,1,1,f);
-fclose(f);
+
+	void printVecV(vector<vector<bool> > G){
+	int count=0;
+		for (int i = 0; i < G.size() ; i++) {
+		for(int j = 0;j < G[i].size() ;j ++) {
+			if(G[i][j]){
+			cout<<'O';
+			}else{
+				cout<<'.';
+			}
+	}
+	cout << endl;
 }
+}
+
+
 

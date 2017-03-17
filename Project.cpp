@@ -37,7 +37,16 @@ string initfilename = "/tmp/gol-world-current"; /* read initial state from here.
 
 size_t nbrCount(size_t i, size_t j, const vector<vector<bool> >& g);
 void update();
-int initFromFile(const string& fname);
+int initFromFile(const string& fname); {
+	FILE* f=fopen("/tmp/gol-world-current","rb");
+	if (!f) {
+		exit(1);
+	}
+
+	char c;
+	fread(&c,1,1,f);
+	fclose(f);
+}
 void mainLoop();
 void dumpState(FILE* f);
 
@@ -87,3 +96,4 @@ void mainLoop() {
 	}
 	cout<< n;
 }
+
