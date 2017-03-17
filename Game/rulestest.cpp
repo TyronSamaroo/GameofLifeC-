@@ -9,19 +9,70 @@ using std::vector;
 #include <string>
 using namespace std;
 
+static const char* usage =
+"Usage: %s [OPTIONS]...\n"
+"Text-based version of Conway's game of life.\n\n"
+"   --seed,-s     FILE     read start state from FILE.\n"
+"   --world,-w    FILE     store current world in FILE.\n"
+"   --fast-fw,-f  NUM      evolve system for NUM generations and quit.\n"
+"   --help,-h              show this message and exit.\n";
+
+size_t max_gen = 0; /* if > 0, fast forward to this generation. */
+string wfilename =  "/tmp/gol-world-current"; /* write state here */
+FILE* fworld = 0; /* handle to file wfilename. */
+string initfilename = "/tmp/gol-world-current"; /* read initial state from here. */
+
 vector<vector<bool> > old;
 
-void printVecV(vector<vector<bool> > G);
-
-
+	void printVecV(vector<vector<bool> > G);
 	int check(int i, int j, vector<vector<bool> > g);
 	void initFromFile(const string& fname);
+	void writeToFile(const string & fname);
 	void update();
+	void mainloop();
+
+	char text[3] = ".O";
+
+int main(int argc, char *argv[]) {
+	// define long options
+	static struct option long_opts[] = {
+		{"seed",    required_argument, 0, 's'},
+		{"world",   required_argument, 0, 'w'},
+		{"fast-fw", required_argument, 0, 'f'},
+		{"help",    no_argument,       0, 'h'},
+		{0,0,0,0}
+	};
+	// process options:
+	char c;
+	int opt_index = 0;
+	while ((c = getopt_long(argc, argv, "hs:w:f:", long_opts, &opt_index)) != -1) {
+		switch (c) {
+			case 'h':
+				printf(usage,argv[0]);
+				return 0;
+			case 's':
+				initfilename = optarg;
+				break;
+			case 'w':
+				wfilename = optarg;
+				break;
+			case 'f':
+				max_gen = atoi(optarg);
+				break;
+			case '?':
+				printf(usage,argv[0]);
+				return 1;
+		}
+	}
 
 
-int main(){
+	mainloop();
+	return 0;
 
- return 0;
+
+
+
+
 }
 
 
@@ -69,15 +120,15 @@ int main(){
 
 void initFromFile(const string& fname){
 
-
+	string line;
 	ifstream myfile(fname);
 	if(myfile.is_open()){
 
-		while(getline(myfile,fname)){
+		while(getline (myfile,line)){
 			vector<bool> b;
 
-			for(int i = 0; i < fname.length(); i++){
-						if(fname[i] == '.') {
+			for(int i = 0; i < line.length(); i++){
+						if(line[i] == '.') {
 							b.push_back(false);
 						}else {
 										b.push_back(true);
@@ -92,11 +143,11 @@ void initFromFile(const string& fname){
 
 	void update(){
 
-		vector<vector<bool> > updated
-		for(int i = 0; i < v.size(); i++){
+		vector<vector<bool> > updated;
+		for(int i = 0; i < old.size(); i++){
 		vector<bool> newrow;
-			for(int j = 0; j < v[0].size(); j++){
-				int count = check(i,j,v);
+			for(int j = 0; j < old[0].size(); j++){
+				int count = check(i,j,old);
 				if(count > 3 || count < 2) newrow.push_back(false);
 				if(count == 3) newrow.push_back(true);
 				else newrow.push_back(old[i][j]);
@@ -111,7 +162,24 @@ void initFromFile(const string& fname){
 		if(myfile.is_open()){
 			for(size_t i = 0; i < old.size();i++){
 			for(size_t j = 0; j < old[0].size();j++){
+				if(old[i][j])myfile << 'O';
+				else myfile << '.';
 				}
+				myfile << endl;
 				}
+				myfile.close();
 			}
-		}
+			else cout << "Can't open file" << endl;
+			}
+
+	void mainloop(){
+		string fname;
+		size_t i = old.size();
+		size_t j = old[0].size();
+		initFromFile(fname);
+		check(i,j,old);
+		update();
+		writeToFile(fname);
+		printVecV(old);
+		sleep(1);
+	}
