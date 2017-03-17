@@ -82,8 +82,8 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-
 	mainloop();
+
 	return 0;
 }
 
@@ -178,20 +178,21 @@ void initFromFile(const string& fname){
 				}
 				myfile.close();
 			}
-			else cout << "Can't open file" << endl;
+			else cout << "Can't write file" << endl;
 			}
 
 
 	void mainloop(){
-		string fname;
+
 		size_t i = old.size();
 		size_t j = old[0].size();
-		initFromFile(fname);
+		initFromFile(initfilename);
 		check(i,j,old);
 		update();
-		writeToFile(fname);
+    writeToFile(wfilename);
 		printVecV(old);
 		sleep(1);
 	}
+
 
 

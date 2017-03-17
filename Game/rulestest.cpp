@@ -169,7 +169,7 @@ void initFromFile(const string& fname){
 				}
 				myfile.close();
 			}
-			else cout << "Can't open file" << endl;
+			else cout << "Can't write file" << endl;
 			}
 
 	void mainloop(){
