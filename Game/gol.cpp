@@ -6,11 +6,11 @@
  * and the book, please list everything.  And remember- citing a source does
  * NOT mean it is okay to COPY THAT SOURCE.  What you submit here **MUST BE
  * YOUR OWN WORK**.
- * References:
+ * References: Mofi, cplusplus.com, Stack Exchange, YouTube, multiple forums
  *
  *
  * Finally, please indicate approximately how many hours you spent on this:
- * #hours:
+ * #hours: 20+
  */
 
 #include <iostream>
@@ -185,32 +185,26 @@ void initFromFile(const string& fname){
 
 	void mainloop(){
 
-		size_t i = old.size();
-		size_t j = old[0].size();
 		initFromFile(initfilename);
-		printVecV(old);
-		check(i,j,old);
-		update();
-    writeToFile(wfilename);
-		sleep(1);
-
-		bool write = false;
+		bool writeToScreen = false;
 		if(wfilename == "-"){
-			write = true;
+			writeToScreen = true;
 			}
 
-		if(write){
-			for(size_t k = 0; k < max_gen; k++){
-			update();
-				}
-				printVecV(old);
+		if(writeToScreen){
 
-	}
+		for(size_t k = 0; k < max_gen; k++){
+		update();
+    writeToFile(wfilename);
+		printVecV(old);
+		sleep(1);
+			}}
+
 
 	else if(max_gen == 0){
 		while(true){
 			update();
-			writeToFile(wfilename);
+			writeToFile(initfilename);
 			sleep(1);
 			}}
 		}
