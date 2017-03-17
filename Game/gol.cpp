@@ -188,10 +188,10 @@ void initFromFile(const string& fname){
 		size_t i = old.size();
 		size_t j = old[0].size();
 		initFromFile(initfilename);
+		printVecV(old);
 		check(i,j,old);
 		update();
     writeToFile(wfilename);
-		printVecV(old);
 		sleep(1);
 
 		bool write = false;
