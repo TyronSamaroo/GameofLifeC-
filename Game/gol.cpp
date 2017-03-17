@@ -6,11 +6,10 @@
  * and the book, please list everything.  And remember- citing a source does
  * NOT mean it is okay to COPY THAT SOURCE.  What you submit here **MUST BE
  * YOUR OWN WORK**.
- * References: Mofi, cplusplus.com, Stack Exchange, YouTube, multiple forums
- *
+ * References: Mofi, cplusplus.com, multiple forums and YouTube
  *
  * Finally, please indicate approximately how many hours you spent on this:
- * #hours: 20+
+ * #hours: 26
  */
 
 #include <iostream>
@@ -204,7 +203,7 @@ void initFromFile(const string& fname){
 	else if(max_gen == 0){
 		while(true){
 			update();
-			writeToFile(initfilename);
+			writeToFile(wfilename);
 			sleep(1);
 			}}
 		}
