@@ -138,12 +138,13 @@ void initFromFile(const string& fname){
 
 			for(size_t i = 0; i < line.length(); i++){
 						if(line[i] == '.') {
-							b.push_back(false);
-						}else {
+							b.push_back(false);}
+						else if (line[i] == 'O') {
 										b.push_back(true);
 						}
 					}
-					old.push_back(b);}
+					old.push_back(b);
+					}
 				myfile.close();
 
 				}else cout << "Unable to open file" << endl;
@@ -158,7 +159,7 @@ void initFromFile(const string& fname){
 			for(size_t j = 0; j < old[0].size(); j++){
 				int count = check(i,j,old);
 				if(count > 3 || count < 2) newrow.push_back(false);
-				if(count == 3) newrow.push_back(true);
+				else if(count == 3) newrow.push_back(true);
 				else newrow.push_back(old[i][j]);
 			}
 			updated.push_back(newrow);
