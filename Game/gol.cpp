@@ -193,7 +193,25 @@ void initFromFile(const string& fname){
     writeToFile(wfilename);
 		printVecV(old);
 		sleep(1);
+
+		bool write = false;
+		if(wfilename == "-"){
+			write = true;
+			}
+
+		if(write){
+			for(size_t k = 0; k < max_gen; k++){
+			update();}
+			printVecV(old);
 	}
+
+	else if(max_gen == 0){
+		while(true){
+			update();
+			writeToFile(wfilename);
+			sleep(1);
+			}}
+		}
 
 
 
