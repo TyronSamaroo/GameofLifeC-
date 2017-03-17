@@ -132,3 +132,38 @@ int check(int i, int j, vector<vector<bool> > g){
 
 
 
+	void writeToFile(const string & fname){
+		ofstream myfile(fname);
+		if(myfile.is_open()){
+			for(size_t i = 0; i < old.size();i++){
+			for(size_t j = 0; j < old[0].size();j++){
+				if(old[i][j])myfile << 'O';
+				else myfile << '.';
+				}
+				myfile << endl;
+				}
+				myfile.close();
+			}
+			else cout << "Can't open file" << endl;
+			}
+
+
+
+
+
+
+
+
+	void mainloop(){
+		string fname;
+		size_t i = old.size();
+		size_t j = old[0].size();
+		initFromFile(fname);
+		check(i,j,old);
+		update();
+		writeToFile(fname);
+		printVecV(old);
+		sleep(1);
+	}
+
+
